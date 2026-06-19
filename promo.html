@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo — Shop Mam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/page.css">
+  <style>
+    .page-header {
+      background:linear-gradient(135deg,#7a2e00,#c0392b);
+      padding:32px; color:var(--white);
+    }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; }
+    .page-header h1 em { color:var(--accent); }
+    .page-header p { font-size:13px; color:rgba(255,255,255,.75); margin-top:5px; }
+
+    .promo-body { padding:28px 32px 60px; max-width:960px; }
+
+    .promo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; margin-bottom:40px; }
+
+    .promo-tile {
+      border-radius:var(--radius);
+      padding:24px;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      transition:var(--transition);
+    }
+    .promo-tile:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); }
+
+    .promo-tile.red { background:linear-gradient(135deg,#c0392b,#e74c3c); color:var(--white); }
+    .promo-tile.green { background:linear-gradient(135deg,var(--green-dark),var(--green-mid)); color:var(--white); }
+    .promo-tile.gold { background:linear-gradient(135deg,#b8860b,var(--accent)); color:var(--green-dark); }
+    .promo-tile.teal { background:linear-gradient(135deg,#0d6efd,#6610f2); color:var(--white); }
+
+    .promo-tile .pt-tag { font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; opacity:.8; margin-bottom:10px; display:block; }
+    .promo-tile h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; line-height:1.25; margin-bottom:8px; }
+    .promo-tile p { font-size:12.5px; opacity:.82; line-height:1.6; margin-bottom:14px; }
+    .promo-tile .pt-bg { position:absolute; right:-10px; bottom:-10px; font-size:80px; opacity:.15; }
+    .promo-tile .pt-btn {
+      display:inline-block; padding:8px 18px;
+      background:rgba(255,255,255,.2);
+      border:1.5px solid rgba(255,255,255,.35);
+      border-radius:99px; font-family:inherit;
+      font-size:12px; font-weight:700; cursor:pointer;
+      color:inherit; transition:var(--transition);
+    }
+    .promo-tile.gold .pt-btn { background:rgba(0,0,0,.1); border-color:rgba(0,0,0,.2); }
+    .promo-tile .pt-btn:hover { background:rgba(255,255,255,.3); }
+
+    .coupon-section h3 {
+      font-family:'Playfair Display',serif;
+      font-size:20px; font-weight:700; color:var(--green-dark);
+      margin-bottom:16px;
+    }
+    .coupons { display:flex; flex-direction:column; gap:12px; }
+
+    .coupon {
+      background:var(--white);
+      border:2px dashed var(--green-light);
+      border-radius:var(--radius);
+      padding:16px 20px;
+      display:flex; align-items:center; gap:16px;
+    }
+    .coupon-icon { font-size:32px; flex-shrink:0; }
+    .coupon-info { flex:1; }
+    .coupon-code {
+      font-family:monospace; font-size:18px; font-weight:900;
+      color:var(--green-dark); letter-spacing:.1em;
+    }
+    .coupon-desc { font-size:12px; color:var(--text-light); margin-top:3px; }
+    .copy-btn {
+      padding:8px 16px;
+      background:var(--green-dark); color:var(--white);
+      border:none; border-radius:var(--radius-sm);
+      font-family:inherit; font-size:12.5px; font-weight:700;
+      cursor:pointer; transition:var(--transition);
+      flex-shrink:0;
+    }
+    .copy-btn:hover { background:var(--green-main); }
+  </style>
+</head>
+<body>
+<div class="page-header">
+  <h1>🏷️ Promo & <em>Diskon</em></h1>
+  <p>Penawaran terbaik minggu ini — jangan sampai kehabisan!</p>
+</div>
+
+<div class="promo-body">
+
+  <div class="promo-grid">
+    <div class="promo-tile red" onclick="goPage('pages/kategori.html','kategori')">
+      <span class="pt-tag">🔥 Flash Sale</span>
+      <h2>Diskon hingga 30%</h2>
+      <p>Burung pilihan dengan harga spesial. Hari ini saja!</p>
+      <button class="pt-btn">Belanja Sekarang</button>
+      <div class="pt-bg">🦜</div>
+    </div>
+    <div class="promo-tile green" onclick="goPage('pages/kategori.html','kategori')">
+      <span class="pt-tag">🌾 Pakan Special</span>
+      <h2>Pakan Premium Diskon 20%</h2>
+      <p>Formula terbaik untuk si berbulu. Stok terbatas minggu ini.</p>
+      <button class="pt-btn">Ambil Promo</button>
+      <div class="pt-bg">🌿</div>
+    </div>
+    <div class="promo-tile gold" onclick="goPage('pages/kategori.html','kategori')">
+      <span class="pt-tag">🏠 Sangkar Bundle</span>
+      <h2>Beli 2 Gratis 1 Sangkar</h2>
+      <p>Berlaku untuk semua jenis sangkar. Syarat & ketentuan berlaku.</p>
+      <button class="pt-btn">Lihat Sangkar</button>
+      <div class="pt-bg">🏰</div>
+    </div>
+    <div class="promo-tile teal" onclick="goPage('pages/account.html','akun')">
+      <span class="pt-tag">👤 Member Baru</span>
+      <h2>Diskon 15% Pembelian Pertama</h2>
+      <p>Daftar akun sekarang dan dapatkan kode diskon spesial member baru.</p>
+      <button class="pt-btn">Daftar Sekarang</button>
+      <div class="pt-bg">🎁</div>
+    </div>
+  </div>
+
+  <div class="coupon-section">
+    <h3>🎟️ Kode Kupon</h3>
+    <div class="coupons">
+      <div class="coupon">
+        <div class="coupon-icon">🦜</div>
+        <div class="coupon-info">
+          <div class="coupon-code">SHOPMAM15</div>
+          <div class="coupon-desc">Diskon 15% untuk semua produk burung. Min. Rp 200.000</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode('SHOPMAM15',this)">Salin</button>
+      </div>
+      <div class="coupon">
+        <div class="coupon-icon">🌾</div>
+        <div class="coupon-info">
+          <div class="coupon-code">PAKAN20</div>
+          <div class="coupon-desc">Diskon 20% untuk semua pakan. Min. Rp 100.000</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode('PAKAN20',this)">Salin</button>
+      </div>
+      <div class="coupon">
+        <div class="coupon-icon">🚚</div>
+        <div class="coupon-info">
+          <div class="coupon-code">ONGKIRGRATIS</div>
+          <div class="coupon-desc">Gratis ongkos kirim ke seluruh Indonesia. Tanpa minimum pembelian.</div>
+        </div>
+        <button class="copy-btn" onclick="copyCode('ONGKIRGRATIS',this)">Salin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/products.js"></script>
+<script>
+function copyCode(code, btn) {
+  navigator.clipboard.writeText(code).catch(()=>{});
+  btn.textContent = '✓ Tersalin!';
+  btn.style.background = 'var(--green-main)';
+  setTimeout(() => { btn.textContent = 'Salin'; btn.style.background = ''; }, 2000);
+  showToast(`✅ Kode "${code}" disalin!`);
+}
+</script>
+</body>
+</html>

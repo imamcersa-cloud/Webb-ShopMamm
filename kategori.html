@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kategori — Shop Mam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/page.css">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+      padding: 32px 32px 28px;
+      color: var(--white);
+    }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; }
+    .page-header h1 em { color:var(--accent); }
+    .page-header p { font-size:13px; color:rgba(255,255,255,.7); margin-top:5px; }
+
+    .cat-sections { display:flex; min-height:calc(100vh - 130px); }
+
+    .cat-list {
+      width: 210px; flex-shrink:0;
+      background: var(--white);
+      border-right: 1px solid var(--green-pale);
+      padding: 18px 0;
+      position: sticky; top:0; height:100vh; overflow-y:auto;
+    }
+
+    .cat-area { flex:1; padding:24px 28px 50px; }
+
+    .cat-block { margin-bottom: 40px; }
+    .cat-block-header {
+      display:flex; align-items:center; gap:12px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--green-pale);
+    }
+    .cat-block-icon { font-size:28px; }
+    .cat-block-title {
+      font-family:'Playfair Display',serif;
+      font-size:22px; font-weight:700;
+      color:var(--green-dark);
+    }
+    .cat-block-count { font-size:12px; color:var(--text-light); margin-left:auto; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>📦 Semua <em>Kategori</em></h1>
+  <p>Temukan semua produk kami berdasarkan kategori</p>
+</div>
+
+<div class="cat-sections">
+  <aside class="cat-list">
+    <div class="sidebar-title">Kategori</div>
+    <div class="sidebar-item active" onclick="scrollTo('burung')">
+      <span class="s-icon">🦜</span> Burung
+      <span class="s-count">6</span>
+    </div>
+    <div class="sidebar-item" onclick="scrollTo('pakan')">
+      <span class="s-icon">🌾</span> Pakan
+      <span class="s-count">4</span>
+    </div>
+    <div class="sidebar-item" onclick="scrollTo('sangkar')">
+      <span class="s-icon">🏠</span> Sangkar
+      <span class="s-count">4</span>
+    </div>
+  </aside>
+
+  <div class="cat-area">
+
+    <!-- BURUNG -->
+    <div class="cat-block" id="sec-burung">
+      <div class="cat-block-header">
+        <div class="cat-block-icon">🦜</div>
+        <div class="cat-block-title">Burung</div>
+        <div class="cat-block-count">6 produk</div>
+      </div>
+      <div class="products-grid" id="grid-burung"></div>
+    </div>
+
+    <!-- PAKAN -->
+    <div class="cat-block" id="sec-pakan">
+      <div class="cat-block-header">
+        <div class="cat-block-icon">🌾</div>
+        <div class="cat-block-title">Pakan</div>
+        <div class="cat-block-count">4 produk</div>
+      </div>
+      <div class="products-grid" id="grid-pakan"></div>
+    </div>
+
+    <!-- SANGKAR -->
+    <div class="cat-block" id="sec-sangkar">
+      <div class="cat-block-header">
+        <div class="cat-block-icon">🏠</div>
+        <div class="cat-block-title">Sangkar</div>
+        <div class="cat-block-count">4 produk</div>
+      </div>
+      <div class="products-grid" id="grid-sangkar"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/products.js"></script>
+<script>
+const cats = ['burung','pakan','sangkar'];
+const labels = { burung:'Burung', pakan:'Pakan', sangkar:'Sangkar' };
+
+cats.forEach(cat => {
+  const grid = document.getElementById('grid-' + cat);
+  const items = PRODUCTS.filter(p => p.category === cat);
+  grid.innerHTML = items.map((p,i) => `
+    <div class="card" style="animation-delay:${i*0.05}s">
+      <div class="card-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="card-emoji" style="display:none">${p.emoji}</div>
+        <span class="cat-badge badge-${p.category}">${labels[p.category]}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-sub">${p.sub}</div>
+        <div class="card-price">${rupiah(p.price)}</div>
+      </div>
+      <div class="card-footer">
+        <button class="add-btn" data-add="${p.id}" onclick="addToCart(${p.id})">🛒 Tambah ke Keranjang</button>
+      </div>
+    </div>
+  `).join('');
+});
+
+function scrollTo(cat) {
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('sec-' + cat).scrollIntoView({ behavior:'smooth', block:'start' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Mam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shell.css">
+</head>
+<body>
+
+  <!-- ══════════════ HEADER / NAVBAR ══════════════ -->
+  <header id="mainHeader">
+    <div class="header-top">
+
+      <!-- LOGO (ganti gambar: taruh file logo di images/ui/logo.png) -->
+      <a class="logo" href="# " onclick="navigate('pages/home.html','beranda')">
+        <img src="images/ui/logo.png" alt="Shop Mam Logo"
+             class="logo-img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-text" style="display:none">
+          <span class="logo-icon">🦜</span>
+          <div>
+            <span class="logo-name">Shop<em>mam</em></span>
+            <span class="logo-tagline">Belanja Mudah, Hidup Berkah</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- SEARCH -->
+      <div class="search-wrap">
+        <input type="text" id="globalSearch" placeholder="Cari burung, pakan, sangkar…"
+               onkeydown="handleSearch(event)">
+        <button class="search-btn" onclick="doSearch()">🔍</button>
+      </div>
+
+      <!-- RIGHT ACTIONS -->
+      <div class="header-actions">
+        <button class="action-btn" onclick="navigate('pages/account.html','akun')" title="Akun Saya">
+          <span class="action-icon">👤</span>
+          <span class="action-label">Akun</span>
+        </button>
+        <button class="action-btn cart-action" onclick="navigate('pages/cart.html','keranjang')" title="Keranjang">
+          <span class="action-icon">🛒</span>
+          <span class="action-label">Keranjang</span>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- NAV TABS -->
+    <nav class="header-nav">
+      <button class="nav-tab active" data-page="beranda"
+              onclick="navigate('pages/home.html','beranda')">🏠 Beranda</button>
+      <button class="nav-tab" data-page="kategori"
+              onclick="navigate('pages/kategori.html','kategori')">📦 Kategori</button>
+      <button class="nav-tab" data-page="promo"
+              onclick="navigate('pages/promo.html','promo')">🏷️ Promo</button>
+      <button class="nav-tab" data-page="tentang"
+              onclick="navigate('pages/tentang.html','tentang')">ℹ️ Tentang Kami</button>
+      <button class="nav-tab" data-page="bantuan"
+              onclick="navigate('pages/bantuan.html','bantuan')">📞 Bantuan</button>
+    </nav>
+  </header>
+
+  <!-- ══════════════ MAIN FRAME ══════════════ -->
+  <main id="mainFrame">
+    <iframe
+      id="contentFrame"
+      src="pages/home.html"
+      frameborder="0"
+      title="Konten Utama"
+      onload="onFrameLoad()"
+    ></iframe>
+  </main>
+
+  <!-- ══════════════ LOADING BAR ══════════════ -->
+  <div id="loadingBar"></div>
+
+  <script src="js/shell.js"></script>
+</body>
+</html>

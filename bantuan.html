@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bantuan — Shop Mam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/page.css">
+  <style>
+    .page-header {
+      background:linear-gradient(135deg,var(--green-dark),var(--green-mid));
+      padding:32px; color:var(--white);
+    }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; }
+    .page-header h1 em { color:var(--accent); }
+
+    .help-body { display:flex; gap:28px; padding:28px 32px 60px; align-items:flex-start; }
+
+    .help-sidebar {
+      width:220px; flex-shrink:0;
+      background:var(--white);
+      border:1.5px solid var(--green-pale);
+      border-radius:var(--radius);
+      padding:8px 0;
+      position:sticky; top:20px;
+    }
+
+    .help-nav-item {
+      display:flex; align-items:center; gap:10px;
+      padding:10px 18px;
+      font-size:13.5px; font-weight:500;
+      color:var(--text-mid); cursor:pointer;
+      border-left:3px solid transparent;
+      transition:var(--transition);
+    }
+    .help-nav-item:hover { background:var(--green-ultra); color:var(--green-dark); border-left-color:var(--green-light); }
+    .help-nav-item.active { background:var(--green-pale); color:var(--green-dark); border-left-color:var(--green-main); font-weight:700; }
+
+    .help-content { flex:1; }
+
+    .help-section { margin-bottom:36px; }
+    .help-section h2 { font-family:'Playfair Display',serif; font-size:20px; color:var(--green-dark); margin-bottom:16px; }
+    .help-section h2 em { color:var(--green-main); }
+
+    .faq-item {
+      background:var(--white); border:1.5px solid var(--green-pale);
+      border-radius:var(--radius-sm); margin-bottom:10px; overflow:hidden;
+    }
+    .faq-q {
+      padding:14px 18px;
+      font-size:14px; font-weight:600; color:var(--text-dark);
+      cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+      transition:background .2s;
+    }
+    .faq-q:hover { background:var(--green-ultra); }
+    .faq-q.open { background:var(--green-pale); color:var(--green-dark); }
+    .faq-arrow { font-size:12px; transition:transform .3s; }
+    .faq-q.open .faq-arrow { transform:rotate(180deg); }
+    .faq-a {
+      display:none;
+      padding:0 18px 14px;
+      font-size:13px; color:var(--text-mid); line-height:1.7;
+      border-top:1px solid var(--green-pale);
+    }
+
+    .contact-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; }
+    .contact-card {
+      background:var(--white); border:1.5px solid var(--green-pale);
+      border-radius:var(--radius); padding:20px; text-align:center;
+      box-shadow:var(--shadow); transition:var(--transition); cursor:pointer;
+    }
+    .contact-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-hover); border-color:var(--green-light); }
+    .contact-card .cc-icon { font-size:32px; margin-bottom:10px; }
+    .contact-card h4 { font-size:14px; font-weight:700; color:var(--text-dark); margin-bottom:5px; }
+    .contact-card p  { font-size:12px; color:var(--text-light); }
+
+    @media (max-width:700px) {
+      .help-body { flex-direction:column; padding:16px; }
+      .help-sidebar { width:100%; position:static; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-header">
+  <h1>📞 Pusat <em>Bantuan</em></h1>
+</div>
+
+<div class="help-body">
+  <div class="help-sidebar">
+    <div class="help-nav-item active" onclick="scrollSec('faq',this)">❓ FAQ</div>
+    <div class="help-nav-item" onclick="scrollSec('pengiriman',this)">🚚 Pengiriman</div>
+    <div class="help-nav-item" onclick="scrollSec('pembayaran',this)">💳 Pembayaran</div>
+    <div class="help-nav-item" onclick="scrollSec('pengembalian',this)">↩️ Pengembalian</div>
+    <div class="help-nav-item" onclick="scrollSec('kontak',this)">📱 Kontak Kami</div>
+  </div>
+
+  <div class="help-content">
+
+    <div class="help-section" id="sec-faq">
+      <h2>❓ Pertanyaan yang <em>Sering Ditanyakan</em></h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah burung yang dijual asli dan legal? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Ya! Semua burung di Shop Mam memiliki sertifikat resmi dari BKSDA dan dijamin 100% legal serta sehat. Kami berkomitmen pada perdagangan satwa yang bertanggung jawab.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Bagaimana cara memesan? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Pilih produk → klik "Tambah ke Keranjang" → buka halaman Keranjang → klik "Checkout via WhatsApp". Tim kami akan langsung memproses pesananmu.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Berapa lama pengiriman? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Pengiriman dalam kota: 1–2 hari. Antar pulau: 3–5 hari kerja. Untuk burung hidup, kami menggunakan jasa pengiriman khusus dengan kondisi yang aman.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah ada garansi produk? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Semua produk memiliki garansi 7 hari. Jika ada masalah dengan produk yang diterima, hubungi kami melalui WhatsApp dan kami akan segera menyelesaikannya.</div>
+      </div>
+    </div>
+
+    <div class="help-section" id="sec-pengiriman">
+      <h2>🚚 Info <em>Pengiriman</em></h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Gratis ongkir syaratnya? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Gratis ongkir berlaku untuk pembelian minimum Rp 50.000 ke seluruh Indonesia. Gunakan kode kupon ONGKIRGRATIS untuk gratis ongkir tanpa minimum.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apakah bisa COD? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">COD tersedia untuk area tertentu. Hubungi kami via WhatsApp untuk konfirmasi ketersediaan COD di area kamu.</div>
+      </div>
+    </div>
+
+    <div class="help-section" id="sec-pembayaran">
+      <h2>💳 Metode <em>Pembayaran</em></h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Metode pembayaran apa yang diterima? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Kami menerima transfer bank (BCA, BRI, Mandiri, BNI), dompet digital (GoPay, OVO, Dana, ShopeePay), QRIS, dan COD untuk area tertentu.</div>
+      </div>
+    </div>
+
+    <div class="help-section" id="sec-pengembalian">
+      <h2>↩️ Kebijakan <em>Pengembalian</em></h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Bagaimana cara mengajukan pengembalian? <span class="faq-arrow">▼</span></div>
+        <div class="faq-a">Hubungi kami dalam 7 hari setelah barang diterima. Kirimkan foto/video bukti kondisi produk via WhatsApp. Kami akan proses pengembalian dana dalam 2–3 hari kerja.</div>
+      </div>
+    </div>
+
+    <div class="help-section" id="sec-kontak">
+      <h2>📱 <em>Hubungi</em> Kami</h2>
+      <div class="contact-cards">
+        <div class="contact-card" onclick="window.open('https://wa.me/6281234567890','_blank')">
+          <div class="cc-icon">💬</div>
+          <h4>WhatsApp</h4>
+          <p>+62 812-3456-7890<br>Respon dalam 5 menit</p>
+        </div>
+        <div class="contact-card" onclick="window.open('mailto:shopmam@email.com','_blank')">
+          <div class="cc-icon">📧</div>
+          <h4>Email</h4>
+          <p>shopmam@email.com<br>Respon dalam 24 jam</p>
+        </div>
+        <div class="contact-card" onclick="window.open('https://instagram.com','_blank')">
+          <div class="cc-icon">📸</div>
+          <h4>Instagram</h4>
+          <p>@shopmam.id<br>DM kami langsung</p>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">🕐</div>
+          <h4>Jam Operasional</h4>
+          <p>Senin–Sabtu<br>08.00–21.00 WIB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/products.js"></script>
+<script>
+function toggleFaq(el) {
+  const a = el.nextElementSibling;
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+  a.style.display = isOpen ? 'none' : 'block';
+}
+
+function scrollSec(id, el) {
+  document.querySelectorAll('.help-nav-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sec-'+id).scrollIntoView({ behavior:'smooth', block:'start' });
+}
+</script>
+</body>
+</html>

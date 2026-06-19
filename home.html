@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beranda — Shop Mam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/page.css">
+  <style>
+    /* ── HERO SLIDER ── */
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      height: 310px;
+      overflow: hidden;
+      background: var(--green-dark);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transition: opacity .9s ease;
+      padding: 0 50px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 55%, var(--green-main) 100%);
+    }
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M26 0l4 18h18L34 30l4 18-12-9-12 9 4-18L4 18h18z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .slide.active { opacity: 1; z-index: 2; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 3;
+      max-width: 480px;
+    }
+
+    .slide-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--green-dark);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 14px;
+    }
+
+    .slide-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.18;
+      margin-bottom: 12px;
+    }
+    .slide-content h1 em { color: var(--accent); }
+
+    .slide-content p {
+      font-size: 14px;
+      color: rgba(255,255,255,.75);
+      line-height: 1.65;
+      margin-bottom: 22px;
+      max-width: 380px;
+    }
+
+    .slide-img {
+      position: absolute;
+      right: 40px;
+      bottom: 0;
+      height: 90%;
+      object-fit: contain;
+      z-index: 3;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.35));
+      animation: floatImg 5s ease-in-out infinite;
+    }
+    .slide-img-placeholder {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 90px;
+      z-index: 3;
+      animation: floatImg 5s ease-in-out infinite;
+      display: none;
+    }
+    @keyframes floatImg {
+      0%,100% { transform: translateY(-50%) translateY(0); }
+      50%      { transform: translateY(-50%) translateY(-10px); }
+    }
+
+    /* slider controls */
+    .slider-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.4);
+      cursor: pointer;
+      transition: all .3s ease;
+      border: none;
+    }
+    .dot.active {
+      background: var(--accent);
+      width: 24px;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,.15);
+      border: none;
+      color: var(--white);
+      font-size: 20px;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background .2s;
+      backdrop-filter: blur(4px);
+    }
+    .slider-arrow:hover { background: rgba(255,255,255,.28); }
+    .slider-arrow.prev { left: 16px; }
+    .slider-arrow.next { right: 16px; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      display: flex;
+      background: var(--white);
+      border-bottom: 1px solid var(--green-pale);
+      padding: 0;
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-right: 1px solid var(--green-pale);
+      font-size: 12.5px;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 22px; flex-shrink: 0; }
+    .trust-label { font-weight: 700; color: var(--text-dark); font-size: 12.5px; }
+    .trust-sub { color: var(--text-light); font-size: 11px; }
+
+    /* ── HOME BODY ── */
+    .home-body { display: flex; }
+
+    /* ── PRODUCTS AREA ── */
+    .products-area {
+      flex: 1;
+      padding: 24px 26px 40px;
+      min-width: 0;
+    }
+
+    /* ── PROMO BANNER ── */
+    .promo-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .promo-card {
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .promo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .promo-card.green {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+      color: var(--white);
+    }
+    .promo-card.gold {
+      background: linear-gradient(135deg, #b8860b, var(--accent));
+      color: var(--green-dark);
+    }
+    .promo-card .p-tag { font-size: 10px; font-weight: 800; letter-spacing:.1em; text-transform:uppercase; opacity:.8; }
+    .promo-card h3 { font-family:'Playfair Display',serif; font-size: 18px; font-weight:900; line-height:1.2; }
+    .promo-card p { font-size: 12px; opacity:.8; }
+    .promo-emoji { position:absolute; right:16px; bottom:10px; font-size:42px; opacity:.25; }
+
+    /* ── FLASH SALE STRIP ── */
+    .flash-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .flash-badge {
+      background: #e74c3c;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 99px;
+      letter-spacing: .05em;
+    }
+    .flash-timer {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e74c3c;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO SLIDER -->
+<div class="hero-slider" id="heroSlider">
+
+  <!-- Slide 1 -->
+  <div class="slide active">
+    <img class="slide-bg" src="../images/hero/slide1.jpg" alt=""
+         onerror="this.style.display='none'">
+    <div class="slide-content">
+      <span class="slide-tag">🌿 Toko Terpercaya</span>
+      <h1>Selamat Datang di<br><em>Shop Mam</em></h1>
+      <p>Temukan burung eksotis pilihan, pakan berkualitas tinggi, dan sangkar terbaik untuk si berbulu.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="goPage('pages/kategori.html','kategori')">Belanja Sekarang 🛒</button>
+        <button class="btn-secondary" onclick="scrollToProducts()">Lihat Produk</button>
+      </div>
+    </div>
+    <img class="slide-img" src="../images/hero/bird1.png" alt="Bird"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="slide-img-placeholder">🦜</div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide">
+    <img class="slide-bg" src="../images/hero/slide2.jpg" alt=""
+         onerror="this.style.display='none'">
+    <div class="slide-content">
+      <span class="slide-tag">🏷️ Promo Minggu Ini</span>
+      <h1>Pakan <em>Premium</em><br>Diskon 20%</h1>
+      <p>Nutrisi terbaik untuk burung kesayanganmu. Stok terbatas, jangan sampai kehabisan!</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="filterAndScroll('pakan')">Lihat Pakan</button>
+      </div>
+    </div>
+    <img class="slide-img" src="../images/hero/bird2.png" alt="Bird"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="slide-img-placeholder">🌾</div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide">
+    <img class="slide-bg" src="../images/hero/slide3.jpg" alt=""
+         onerror="this.style.display='none'">
+    <div class="slide-content">
+      <span class="slide-tag">🏠 Koleksi Sangkar</span>
+      <h1>Sangkar <em>Indah</em><br>untuk Si Berbulu</h1>
+      <p>Dari sangkar tradisional hingga besi kokoh anti-karat. Nyaman untuk burung, cantik di rumah.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="filterAndScroll('sangkar')">Lihat Sangkar</button>
+      </div>
+    </div>
+    <img class="slide-img" src="../images/hero/bird3.png" alt="Bird"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="slide-img-placeholder">🏠</div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="slide">
+    <img class="slide-bg" src="../images/hero/slide4.jpg" alt=""
+         onerror="this.style.display='none'">
+    <div class="slide-content">
+      <span class="slide-tag">🦅 Burung Eksotis</span>
+      <h1>Koleksi Burung<br><em>Langka & Eksotis</em></h1>
+      <p>Cendrawasih Papua, Burung Kalimantan, Trump Bird, dan banyak lagi. Semua bersertifikat asli.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="filterAndScroll('burung')">Lihat Burung</button>
+      </div>
+    </div>
+    <img class="slide-img" src="../images/hero/bird4.png" alt="Bird"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <div class="slide-img-placeholder">🦅</div>
+  </div>
+
+  <!-- Dots -->
+  <div class="slider-dots" id="sliderDots"></div>
+  <button class="slider-arrow prev" onclick="prevSlide()">‹</button>
+  <button class="slider-arrow next" onclick="nextSlide()">›</button>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="trust-icon">🚚</div>
+    <div><div class="trust-label">Gratis Ongkir</div><div class="trust-sub">Min. belanja Rp50.000</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">✅</div>
+    <div><div class="trust-label">Produk Berkualitas</div><div class="trust-sub">100% Asli & Bersertifikat</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🔒</div>
+    <div><div class="trust-label">Pembayaran Aman</div><div class="trust-sub">Terjamin & Terpercaya</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">↩️</div>
+    <div><div class="trust-label">7 Hari Pengembalian</div><div class="trust-sub">Garansi uang kembali</div></div>
+  </div>
+</div>
+
+<!-- MAIN BODY: sidebar + products -->
+<div class="home-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Kategori</div>
+
+    <div class="sidebar-item active" onclick="setCategory('all',this)">
+      <span class="s-icon">🏪</span> Semua Produk
+      <span class="s-count" id="cnt-all">14</span>
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-title" style="padding-top:6px">Burung</div>
+
+    <div class="sidebar-item" onclick="setCategory('burung',this)">
+      <span class="s-icon">🦜</span> Semua Burung
+      <span class="s-count" id="cnt-burung">6</span>
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Burung Kalimantan',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Burung Kalimantan
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Dokbird',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Dokbird
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Beo',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Burung Beo
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Kakatua',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Kakatua
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-title" style="padding-top:6px">Pakan</div>
+
+    <div class="sidebar-item" onclick="setCategory('pakan',this)">
+      <span class="s-icon">🌾</span> Semua Pakan
+      <span class="s-count" id="cnt-pakan">4</span>
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Premium',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Pakan Premium
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('B.A.J',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Pakan B.A.J
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Protein',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Pakan Protein
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Rendang',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Pakan Rendang
+    </div>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-title" style="padding-top:6px">Sangkar</div>
+
+    <div class="sidebar-item" onclick="setCategory('sangkar',this)">
+      <span class="s-icon">🏠</span> Semua Sangkar
+      <span class="s-count" id="cnt-sangkar">4</span>
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Tradisional',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Tradisional
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Bamboo',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Bamboo
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Emas kuno',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Emas Kuno
+    </div>
+    <div class="sidebar-item sub" onclick="setSubFilter('Besi',this)">
+      <span class="s-icon" style="font-size:12px">›</span> Sangkar Besi
+    </div>
+  </aside>
+
+  <!-- PRODUCTS AREA -->
+  <div class="products-area" id="productsArea">
+
+    <!-- PROMO BANNERS -->
+    <div class="promo-banner">
+      <div class="promo-card green" onclick="filterAndScroll('burung')">
+        <span class="p-tag">Unggulan</span>
+        <h3>Burung Eksotis<br>Pilihan Terbaik</h3>
+        <p>Cendrawasih, Kalimantan & lainnya</p>
+        <div class="promo-emoji">🦜</div>
+      </div>
+      <div class="promo-card gold" onclick="filterAndScroll('pakan')">
+        <span class="p-tag">🔥 Diskon 20%</span>
+        <h3>Pakan Premium<br>Minggu Ini</h3>
+        <p>Stok terbatas!</p>
+        <div class="promo-emoji">🌾</div>
+      </div>
+    </div>
+
+    <!-- SECTION HEADER -->
+    <div class="section-header" id="productsArea">
+      <div>
+        <div class="section-title">Produk <em>Terlaris</em></div>
+        <div style="font-size:12px;color:var(--text-light);margin-top:3px" id="resultCount">Menampilkan semua produk</div>
+      </div>
+      <div class="filter-pills">
+        <button class="pill active" onclick="sortProducts('default',this)">Semua</button>
+        <button class="pill" onclick="sortProducts('price-asc',this)">Harga ↑</button>
+        <button class="pill" onclick="sortProducts('price-desc',this)">Harga ↓</button>
+        <button class="pill" onclick="sortProducts('name',this)">A–Z</button>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="products-grid" id="productsGrid"></div>
+    <div id="noResults" style="display:none" class="no-results">
+      <div class="nr-icon">🔍</div>
+      <p>Produk tidak ditemukan</p>
+    </div>
+
+    <!-- FOOTER inside page -->
+    <footer class="page-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div style="display:flex;align-items:center;gap:8px;color:var(--white)">
+            <span style="font-size:22px">🦜</span>
+            <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900">Shop<em>mam</em></span>
+          </div>
+          <p>Toko burung dan perlengkapan terpercaya sejak 2020. Kualitas terjamin, harga bersahabat.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <a href="#" onclick="goPage('pages/home.html','beranda')">Beranda</a>
+          <a href="#" onclick="goPage('pages/kategori.html','kategori')">Kategori</a>
+          <a href="#" onclick="goPage('pages/promo.html','promo')">Promo</a>
+        </div>
+        <div class="footer-col">
+          <h4>Layanan</h4>
+          <a href="#" onclick="goPage('pages/bantuan.html','bantuan')">Bantuan</a>
+          <a href="#" onclick="goPage('pages/tentang.html','tentang')">Tentang Kami</a>
+          <a href="#" onclick="goPage('pages/account.html','akun')">Akun Saya</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ikuti Kami</h4>
+          <a href="#">📘 Facebook</a>
+          <a href="#">📸 Instagram</a>
+          <a href="#">🎵 TikTok</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2024 Shop Mam. All rights reserved.</div>
+    </footer>
+  </div>
+</div>
+
+<script src="../js/products.js"></script>
+<script>
+// ── STATE ──
+let currentCat  = 'all';
+let currentSort = 'default';
+let currentSub  = '';
+
+// ── RENDER ──
+function renderProducts() {
+  const grid     = document.getElementById('productsGrid');
+  const noRes    = document.getElementById('noResults');
+  const countEl  = document.getElementById('resultCount');
+
+  let list = [...PRODUCTS];
+
+  if (currentCat !== 'all')  list = list.filter(p => p.category === currentCat);
+  if (currentSub)            list = list.filter(p => p.name.toLowerCase().includes(currentSub.toLowerCase()));
+
+  // URL search param support
+  const urlQ = new URLSearchParams(window.location.search).get('search');
+  if (urlQ) list = list.filter(p =>
+    p.name.toLowerCase().includes(urlQ.toLowerCase()) ||
+    p.sub.toLowerCase().includes(urlQ.toLowerCase())
+  );
+
+  if (currentSort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+  if (currentSort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (currentSort === 'name')       list.sort((a,b) => a.name.localeCompare(b.name));
+
+  countEl.textContent = `Menampilkan ${list.length} produk`;
+
+  if (!list.length) { grid.innerHTML=''; noRes.style.display='block'; return; }
+  noRes.style.display = 'none';
+
+  const badgeLabel = { burung:'Burung', pakan:'Pakan', sangkar:'Sangkar' };
+
+  grid.innerHTML = list.map((p,i) => `
+    <div class="card" style="animation-delay:${i*0.045}s">
+      <div class="card-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="card-emoji" style="display:none">${p.emoji}</div>
+        <span class="cat-badge badge-${p.category}">${badgeLabel[p.category]}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-sub">${p.sub}</div>
+        <div class="card-price">${rupiah(p.price)}</div>
+      </div>
+      <div class="card-footer">
+        <button class="add-btn" data-add="${p.id}" onclick="addToCart(${p.id})">
+          🛒 Tambah ke Keranjang
+        </button>
+      </div>
+    </div>
+  `).join('');
+
+  // Update counts
+  document.getElementById('cnt-all').textContent = PRODUCTS.length;
+  document.getElementById('cnt-burung').textContent  = PRODUCTS.filter(p=>p.category==='burung').length;
+  document.getElementById('cnt-pakan').textContent   = PRODUCTS.filter(p=>p.category==='pakan').length;
+  document.getElementById('cnt-sangkar').textContent = PRODUCTS.filter(p=>p.category==='sangkar').length;
+}
+
+function setCategory(cat, el) {
+  currentCat = cat; currentSub = '';
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+  scrollToProducts();
+}
+
+function setSubFilter(name, el) {
+  currentSub = name; currentCat = 'all';
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+  scrollToProducts();
+}
+
+function filterAndScroll(cat) {
+  currentCat = cat; currentSub = '';
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  renderProducts();
+  scrollToProducts();
+}
+
+function sortProducts(type, el) {
+  currentSort = type;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+}
+
+function scrollToProducts() {
+  document.getElementById('productsArea').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ── HERO SLIDER ──
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('sliderDots');
+let current = 0;
+let sliderTimer;
+
+// Build dots
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => goSlide(i);
+  dotsContainer.appendChild(d);
+});
+
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  document.querySelectorAll('.dot')[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.querySelectorAll('.dot')[current].classList.add('active');
+  resetTimer();
+}
+
+function nextSlide() { goSlide(current + 1); }
+function prevSlide() { goSlide(current - 1); }
+
+function resetTimer() {
+  clearInterval(sliderTimer);
+  sliderTimer = setInterval(() => goSlide(current + 1), 7000);
+}
+
+resetTimer(); // auto-slide every 7s
+
+// Init
+renderProducts();
+</script>
+</body>
+</html>

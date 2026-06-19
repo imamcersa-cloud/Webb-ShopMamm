@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang Kami — Shop Mam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/page.css">
+  <style>
+    .page-header {
+      background:linear-gradient(135deg,var(--green-dark),var(--green-mid));
+      padding:40px 32px; color:var(--white); text-align:center;
+    }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; }
+    .page-header h1 em { color:var(--accent); }
+    .page-header p { font-size:14px; color:rgba(255,255,255,.75); margin-top:8px; max-width:500px; margin-inline:auto; }
+
+    .about-body { max-width:860px; margin:0 auto; padding:40px 32px 60px; }
+
+    .story-section {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:36px; align-items:center; margin-bottom:50px;
+    }
+    .story-img {
+      border-radius:var(--radius); background:var(--green-pale);
+      height:260px; display:flex; align-items:center; justify-content:center;
+      font-size:90px; overflow:hidden;
+    }
+    .story-img img { width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
+    .story-text h2 { font-family:'Playfair Display',serif; font-size:26px; color:var(--green-dark); margin-bottom:14px; }
+    .story-text h2 em { color:var(--green-main); }
+    .story-text p { font-size:13.5px; color:var(--text-mid); line-height:1.75; margin-bottom:10px; }
+
+    .stats-row {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:16px; margin-bottom:50px;
+    }
+    .stat-box {
+      background:var(--white); border:1.5px solid var(--green-pale);
+      border-radius:var(--radius); padding:22px 16px;
+      text-align:center; box-shadow:var(--shadow);
+    }
+    .stat-num {
+      font-family:'Playfair Display',serif;
+      font-size:30px; font-weight:900; color:var(--green-dark);
+    }
+    .stat-label { font-size:12px; color:var(--text-light); margin-top:4px; }
+
+    .values-section h2 { font-family:'Playfair Display',serif; font-size:24px; color:var(--green-dark); margin-bottom:18px; }
+    .values-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; }
+    .value-card {
+      background:var(--white); border:1.5px solid var(--green-pale);
+      border-radius:var(--radius); padding:20px;
+      box-shadow:var(--shadow); transition:var(--transition);
+    }
+    .value-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-hover); border-color:var(--green-light); }
+    .value-icon { font-size:30px; margin-bottom:10px; }
+    .value-card h3 { font-size:14.5px; font-weight:700; color:var(--green-dark); margin-bottom:6px; }
+    .value-card p  { font-size:12.5px; color:var(--text-mid); line-height:1.6; }
+
+    @media (max-width:600px) {
+      .story-section { grid-template-columns:1fr; }
+      .stats-row { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="page-header">
+  <h1>Tentang <em>Shop Mam</em></h1>
+  <p>Kami hadir untuk memudahkan kamu menemukan burung eksotis, pakan berkualitas, dan sangkar terbaik.</p>
+</div>
+
+<div class="about-body">
+  <div class="story-section">
+    <div class="story-img">
+      <img src="../images/ui/about.jpg" alt="Shop Mam"
+           onerror="this.style.display='none';this.parentElement.style.fontSize='80px';this.parentElement.innerHTML='🦜'">
+    </div>
+    <div class="story-text">
+      <h2>Cerita <em>Kami</em></h2>
+      <p>Shop Mam lahir dari kecintaan mendalam terhadap dunia burung. Kami adalah toko online terpercaya yang menyediakan berbagai jenis burung eksotis, pakan premium, dan sangkar berkualitas.</p>
+      <p>Sejak 2020, kami telah melayani ribuan pelanggan di seluruh Indonesia dengan komitmen penuh terhadap kualitas, keaslian produk, dan kepuasan pelanggan.</p>
+      <p>Setiap burung yang kami jual memiliki sertifikat resmi dan dijamin sehat. Karena kami percaya bahwa hewan peliharaan berhak mendapatkan yang terbaik.</p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">5.000+</div>
+      <div class="stat-label">Pelanggan Puas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">Jenis Produk</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4 Thn</div>
+      <div class="stat-label">Pengalaman</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">4.9 ⭐</div>
+      <div class="stat-label">Rating Toko</div>
+    </div>
+  </div>
+
+  <div class="values-section">
+    <h2>Nilai <em>Kami</em></h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">✅</div>
+        <h3>Keaslian Produk</h3>
+        <p>Semua produk kami asli bersertifikat. Tidak ada produk palsu atau ilegal.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <h3>Cinta Satwa</h3>
+        <p>Kami berkomitmen pada kesejahteraan hewan dan hanya menjual burung yang sehat.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🚀</div>
+        <h3>Pengiriman Cepat</h3>
+        <p>Kami bekerja sama dengan jasa pengiriman terpercaya untuk memastikan burungmu tiba dengan selamat.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📞</div>
+        <h3>Layanan 24/7</h3>
+        <p>Tim kami siap membantu kamu kapan saja melalui WhatsApp, email, atau media sosial.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/products.js"></script>
+</body>
+</html>
